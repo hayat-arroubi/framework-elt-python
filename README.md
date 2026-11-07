@@ -102,6 +102,26 @@ puis y décrire ses propres tables :
 Au niveau global, `destination` définit le dossier des fichiers extraits et `load_schema`
 le schéma cible du chargement (défaut : `ODS`).
 
+## Traçabilité
+
+Chaque phase écrit une ligne par table dans `logs/pipeline_log.csv` et dans `dbo.Extraction_Log` :
+
+| Colonne | Contenu |
+|---|---|
+| `execution_date` | Date et heure de l'étape |
+| `schema_name`, `table_name` | Table concernée |
+| `phase` | `extract`, `load` ou `transform` |
+| `status` | `success`, `error` ou `skipped` |
+| `rows_extracted`, `nombre_ligne` | Nombre de lignes traitées |
+| `duration_seconds` | Durée de l'étape |
+| `file_format`, `file_path`, `filename` | Fichier produit ou chargé |
+| `query_used` | Requête ou procédure exécutée |
+| `executed_by` | Utilisateur Windows ayant lancé le pipeline |
+| `message` | `OK`, motif de l'exclusion ou message d'erreur |
+
+Le dashboard Power BI lit cette table en DirectQuery pour suivre les exécutions,
+les erreurs et les durées par table.
+
 ## Sécurité
 
 Les identifiants sont lus depuis `config/.env`, exclu du versionnement par `.gitignore`.
