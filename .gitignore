@@ -1,0 +1,25 @@
+# Environnements virtuels
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Fichiers sensibles
+.env
+
+# Configuration réelle (noms des tables de l'entreprise) : seul l'exemple est publié
+config/pipeline_config.json
+
+# Dashboard Power BI (contient la connexion et la structure des tables)
+*.pbix
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Données extraites (générées, pas versionnées)
+data/raw/**/*.parquet
+data/raw/**/*.csv
+
+# Logs (générés, pas versionnés)
+logs/*.csv

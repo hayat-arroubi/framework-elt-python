@@ -1,0 +1,40 @@
+{
+  "destination": "data/raw/",
+  "load_schema": "ODS",
+  "tables": [
+    {
+      "schema": "source_schema",
+      "name": "table_reference",
+      "query": "SELECT * FROM source_schema.table_reference",
+      "is_active": 1,
+      "transform": 0,
+      "load_mode": "truncate",
+      "run_days": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"],
+      "format": "parquet",
+      "description": "Exemple : table de référence rechargée entièrement chaque jour"
+    },
+    {
+      "schema": "source_schema",
+      "name": "table_inactive",
+      "query": "SELECT * FROM source_schema.table_inactive",
+      "is_active": 0,
+      "transform": 0,
+      "load_mode": "truncate",
+      "run_days": ["monday"],
+      "format": "csv",
+      "description": "Exemple : table désactivée (journalisée 'skipped')"
+    },
+    {
+      "schema": "source_schema",
+      "name": "table_a_transformer",
+      "query": "SELECT * FROM source_schema.table_a_transformer",
+      "is_active": 1,
+      "transform": 1,
+      "transform_procedure": "dbo.usp_Transform_table_a_transformer",
+      "load_mode": "truncate",
+      "run_days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+      "format": "parquet",
+      "description": "Exemple : table chargée puis transformée par une procédure stockée"
+    }
+  ]
+}
